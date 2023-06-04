@@ -1,5 +1,16 @@
 version: '3'
 services:
+#  db:
+#    environment:
+#      - PGDATA=/var/lib/postgresql/data/pgdata
+#      - POSTGRES_PASSWORD=123
+#      - POSTGRES_USER=admin
+#      - POSTGRES_HOST=localhost
+#    labels:
+#      description: "Postgresql Database"
+#      service: "postgresql"
+#    ports:
+#      - '5432:5432'
   flask:
     # Путь до Dockerfile
     build: ./kanban
@@ -12,6 +23,11 @@ services:
       ## Позволяет отслеживать процесс работы приложения в командной строке
       - PYTHONUNBUFFERED=True
       ##
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=kanban
+      - POSTGRES_HOST_AUTH_METHOD=localhost
+      - POSTGRES_PORT=5432
     # Перезапускаем сервис в случае падения
     restart: on-failure
     # Прокладывам путь для файлов. Все файлы, которые хранятся у вас в
